@@ -1,0 +1,19 @@
+---
+- name: Create npm global packages directory
+  file:
+    path: /home/ubuntu/.npm-packages
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 0775
+
+- name: Copy npm configuration
+  template:
+    src: npmrc
+    dest: /home/ubuntu/.npmrc
+
+- name: Install grunt-cli globally
+  npm:
+    name: grunt-cli
+    global: yes
+    state: present

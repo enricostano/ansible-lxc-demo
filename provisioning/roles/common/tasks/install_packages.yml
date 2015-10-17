@@ -1,0 +1,32 @@
+---
+- name: Install build_essentials package
+  apt:
+    name: 'build-essential'
+    state: present
+
+- name: Install ca-certificates
+  apt:
+    name: 'ca-certificates'
+    state: present
+
+- name: Install development packages
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    - 'zlib1g-dev'
+
+- name: Install Git package
+  apt:
+    name: 'git'
+    state: present
+
+- name: Download nodejs .deb
+  get_url:
+    url: 'https://deb.nodesource.com/node_0.12/pool/main/n/nodejs/nodejs_0.12.7-1nodesource1~trusty1_amd64.deb'
+    dest: '/tmp'
+
+- name: Install nodejs package from .deb
+  apt:
+    deb: '/tmp/nodejs_0.12.7-1nodesource1~trusty1_amd64.deb'
